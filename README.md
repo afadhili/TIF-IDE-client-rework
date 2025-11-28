@@ -1,73 +1,113 @@
-# React + TypeScript + Vite
+# TIF-IDE: Client Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Open Source](https://img.shields.io/badge/Open%20Source-Yes-green?style=flat-square)
 
-Currently, two official plugins are available:
+The frontend client for the TIF-IDE collaborative coding platform. Built with React, Vite, and TypeScript, it provides a rich user interface for real-time coding collaboration, featuring a Monaco Editor and a fully functional web-based terminal.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+-   **Code Editor**: Powered by [Monaco Editor](https://microsoft.github.io/monaco-editor/), supporting syntax highlighting and intellisense.
+-   **Web Terminal**: Integrated [xterm.js](https://xtermjs.org/) terminal for executing code and running commands.
+-   **Real-time Collaboration**: Collaborative editing using [Yjs](https://github.com/yjs/yjs) and WebSockets.
+-   **Modern UI**: Clean and responsive interface built with [Radix UI](https://www.radix-ui.com/) and [Tailwind CSS](https://tailwindcss.com/).
+-   **File Explorer**: Tree-view file explorer for managing project files.
+-   **Themes**: Dark mode support via `next-themes`.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## Tech Stack
 
-## Expanding the ESLint configuration
+-   **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+-   **Language**: [TypeScript](https://www.typescriptlang.org/)
+-   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+-   **UI Components**: [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/) (icons)
+-   **Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/) (`@monaco-editor/react`)
+-   **Terminal**: [Xterm.js](https://xtermjs.org/) (`@xterm/xterm`)
+-   **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+-   **Routing**: [React Router](https://reactrouter.com/)
+-   **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
+-   **Collaboration**: [Yjs](https://github.com/yjs/yjs), [Socket.io Client](https://socket.io/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+-   Node.js (v20 or higher)
+-   npm or yarn package manager
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1.  Navigate to the client directory:
+
+    ```bash
+    cd client
+    ```
+
+2.  Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+## Development
+
+To start the development server with Hot Module Replacement (HMR):
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173` (or the port shown in your terminal).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Production Build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1.  Type-check and build the application:
+
+    ```bash
+    npm run build
+    ```
+
+    This will generate the production assets in the `dist` directory.
+
+2.  Preview the production build locally:
+
+    ```bash
+    npm run preview
+    ```
+
+## Project Structure
+
 ```
+client/
+├── src/
+│   ├── components/   # Reusable UI components
+│   ├── context/      # React Context providers
+│   ├── hooks/        # Custom React hooks
+│   ├── lib/          # Utility functions and helpers
+│   ├── pages/        # Page components (routes)
+│   ├── store/        # Zustand state stores
+│   ├── types/        # TypeScript type definitions
+│   ├── App.tsx       # Main application component
+│   ├── main.tsx      # Entry point
+│   └── router.tsx    # Route definitions
+├── public/           # Static assets
+├── index.html        # HTML entry point
+├── package.json      # Dependencies and scripts
+├── tailwind.config.js # Tailwind CSS configuration
+├── tsconfig.json     # TypeScript configuration
+└── vite.config.ts    # Vite configuration
+```
+
+## Scripts
+
+-   `npm run dev`: Start the development server.
+-   `npm run build`: Compile TypeScript and build for production.
+-   `npm run lint`: Run ESLint to check for code quality issues.
+-   `npm run preview`: Preview the production build locally.
+-   `npm start`: Alias for `preview` (runs on port 3001).
+
+## Contributing
+
+We welcome contributions to the TIF-IDE project! Here's how you can help:
+
+1.  **Fork** the repository.
+2.  Create your **feature branch** (`git checkout -b feature/AmazingFeature`).
+3.  **Commit** your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  **Push** to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a **Pull Request**.
