@@ -79,9 +79,7 @@ export default function Terminal() {
   const handleToggleTerminal = () => {
     setIsOpen(!isOpen);
     setTimeout(() => {
-      if (xtermRef.current && !isOpen) {
-        xtermRef.current.focus();
-      }
+      xtermRef.current.focus();
     }, 100);
   };
 
@@ -322,7 +320,7 @@ export default function Terminal() {
 
   return (
     <>
-      {isOpen && <ResizableHandle />}
+      <ResizableHandle className={isOpen ? "" : "hidden"} />
       <div className="flex items-center justify-between px-4 py-1 border">
         <div className="flex items-center gap-1">
           <div className="bg-red-500 h-2 w-2 rounded-full border "></div>
@@ -404,7 +402,10 @@ export default function Terminal() {
       <ResizablePanel
         maxSize={!isOpen ? 0 : 100}
         minSize={isOpen ? 20 : 0}
-        defaultSize={25}
+        defaultSize={Number(localStorage.getItem("terminal-size") || 25)}
+        onResize={(size) => {
+          localStorage.setItem("terminal-size", String(size));
+        }}
         id="terminal-panel"
       >
         <div

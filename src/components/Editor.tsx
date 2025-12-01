@@ -222,7 +222,7 @@ export default function Editor() {
         setActiveFile(null);
         setActiveItem(null);
         toast.info("File was deleted");
-      } else if (activeFile?.path.startsWith(file.path) && activeFile) {
+      } else if (activeFile?.path.startsWith(file.path + "\\") && activeFile) {
         setActiveFile(null);
         toast.info("Parent folder was deleted");
       }

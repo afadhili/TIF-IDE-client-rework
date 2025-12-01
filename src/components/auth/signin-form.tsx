@@ -51,9 +51,6 @@ export default function SigninForm({ className }: { className?: string }) {
         throw new Error(result.message || "Sigin failed");
       }
 
-      localStorage.setItem("user", JSON.stringify(result.user));
-      localStorage.setItem("token", result.token);
-
       toast.success("You have successfully signed in!", {
         duration: 3000,
       });

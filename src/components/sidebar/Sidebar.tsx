@@ -28,14 +28,24 @@ export default function Sidebar() {
 
   return (
     <ResizablePanel
-      defaultSize={20}
+      defaultSize={Number(localStorage.getItem("sidebar-size") || 20)}
+      onResize={(size) => {
+        localStorage.setItem("sidebar-size", String(size));
+      }}
       minSize={sidebarOpen ? 10 : 0}
       maxSize={sidebarOpen ? 70 : 0}
       id="sidebar-panel"
     >
       <div className="h-[calc(100vh-37px)] bg-background">
         <ResizablePanelGroup direction="vertical" className="h-full">
-          <ResizablePanel defaultSize={75} minSize={20} id="file-tree-panel">
+          <ResizablePanel
+            defaultSize={Number(localStorage.getItem("filetree-size") || 75)}
+            onResize={(size) =>
+              localStorage.setItem("filetree-size", String(size))
+            }
+            minSize={20}
+            id="file-tree-panel"
+          >
             <div className="p-2 h-full">
               <FileTree />
             </div>

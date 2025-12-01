@@ -35,6 +35,7 @@ export default function Room() {
   }, [activeRoom, activeFile]);
 
   useEffect(() => {
+    if (loading) return;
     const socket = getSocket();
 
     socket.emit("joinRoom", { roomId, user }, (users: User[]) => {
@@ -59,9 +60,10 @@ export default function Room() {
       socket.off("roomJoined");
       socket.off("roomLeft");
     };
-  }, [roomId, user, setActiveUsers]);
+  }, [roomId, user, setActiveUsers, loading]);
 
   useEffect(() => {
+    if (loading) return;
     if (!authenticated) {
       navigate("/");
       return;
@@ -95,7 +97,7 @@ export default function Room() {
       socket.off("roomUpdated");
       setActiveRoom(null);
     };
-  }, [authenticated, navigate, roomId, setActiveRoom]);
+  }, [authenticated, navigate, roomId, setActiveRoom, loading]);
 
   if (loading)
     return (

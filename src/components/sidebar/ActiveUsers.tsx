@@ -96,7 +96,7 @@ export default function ActiveUsers() {
           {activeUsers.length}
         </Badge>
       </div>
-      <ResizablePanel defaultSize={25} id="active-users-panel">
+      <ResizablePanel id="active-users-panel">
         <div className="p-2 h-full">
           <div className="overflow-y-auto overflow-x-hidden px-2 pb-2 space-y-2 scrollbar-hidden">
             {activeUsers.map((user) => (

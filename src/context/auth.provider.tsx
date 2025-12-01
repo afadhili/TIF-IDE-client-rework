@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { getUser, getToken, isAuthenticated, clearAuthData } from "@/lib/auth";
+import { getUser } from "@/lib/auth";
 import type { User } from "@/lib/auth";
 import { AuthContext } from "./auth.context";
 import useRoomStore from "@/store/room.store";
@@ -8,17 +8,21 @@ import { fetchWithAuth, getSocket } from "@/lib/api";
 import { toast } from "sonner";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(getUser());
-  const [authenticated, setAuthenticated] = useState<boolean>(!!getToken());
+  const [user, setUser] = useState<User | null>(null);
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
   const activeRoom = useRoomStore((state) => state.activeRoom);
   const [loading, setLoading] = useState(true);
   const socket = getSocket();
 
   async function refreshAuth() {
     setLoading(true);
-    const status = await isAuthenticated();
-    setAuthenticated(status);
-    setUser(getUser());
+    const user = await getUser();
+    if (user) {
+      setAuthenticated(true);
+    } else {
+      setAuthenticated(false);
+    }
+    setUser(user);
     setLoading(false);
   }
 
@@ -27,7 +31,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       method: "POST",
     });
     if (!res.ok) return toast.error("Logout failed!");
-    clearAuthData();
     setAuthenticated(false);
     setUser(null);
     toast.success("Logout success!");
@@ -54,6 +57,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
+    if (!user) return;
     socket.emit("init", { user: user });
   }, [socket, user]);
 
@@ -61,11 +65,13 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     let mounted = true;
 
     async function init() {
-      const status = await isAuthenticated();
+      const user = await getUser();
       if (!mounted) return;
-
-      setAuthenticated(status);
-      const user = getUser();
+      if (user) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
       setUser(user);
       setLoading(false);
     }
