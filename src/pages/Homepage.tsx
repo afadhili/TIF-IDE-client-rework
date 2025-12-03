@@ -1,19 +1,22 @@
 import { Terminal, Users, Code, Zap } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAuth } from "@/context/use-auth";
 import { useNavigate } from "react-router";
 import WaveDecorations from "@/components/WaveDecorations";
 import AuthForm from "@/components/auth/auth-form";
 
 export default function App() {
-  const { authenticated } = useAuth();
+  const { authenticated, loading } = useAuth();
+  const hasNavigated = useRef(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authenticated) {
+    if (loading) return;
+    if (authenticated && !hasNavigated.current) {
+      hasNavigated.current = true;
       navigate("/rooms");
     }
-  }, [authenticated, navigate]);
+  }, [authenticated, loading]);
 
   const features = [
     {

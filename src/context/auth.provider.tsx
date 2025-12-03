@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { getUser } from "@/lib/auth";
 import type { User } from "@/lib/auth";
@@ -12,7 +12,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const activeRoom = useRoomStore((state) => state.activeRoom);
   const [loading, setLoading] = useState(true);
-  const socket = getSocket();
+  const socket = useMemo(() => getSocket(), []);
 
   async function refreshAuth() {
     setLoading(true);
@@ -63,21 +63,31 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let mounted = true;
-
     async function init() {
-      const user = await getUser();
-      if (!mounted) return;
-      if (user) {
-        setAuthenticated(true);
-      } else {
+      try {
+        console.log("Fetching user...");
+        const user = await getUser();
+        if (!mounted) return;
+
+        if (user) {
+          setAuthenticated(true);
+          setUser(user);
+        } else {
+          setAuthenticated(false);
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Auth init error:", error);
+        if (!mounted) return;
         setAuthenticated(false);
+        setUser(null);
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
       }
-      setUser(user);
-      setLoading(false);
     }
-
     init();
-
     return () => {
       mounted = false;
     };

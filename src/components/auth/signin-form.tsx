@@ -75,7 +75,10 @@ export default function SigninForm({ className }: { className?: string }) {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit(handleSubmit)(e);
+        }}
         className={cn("space-y-2", className)}
       >
         <FormField

@@ -21,12 +21,16 @@ export interface User {
 }
 
 export async function getUser(): Promise<User | null> {
-  const res = await fetchWithAuth("/users/me");
-  const userStr = await res.json();
-  if (!userStr) return null;
   try {
+    const res = await fetchWithAuth("/users/me");
+    if (!res.ok) return null;
+
+    const userStr = await res.json();
+    if (!userStr || !userStr.user) return null;
+
     return userStr.user;
-  } catch {
+  } catch (error) {
+    console.error("getUser error:", error);
     return null;
   }
 }
