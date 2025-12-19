@@ -174,25 +174,23 @@ export default function Editor() {
       },
     );
 
-    const handleSaveFile = async () => {
-      if (!activeFile || !activeRoom) return;
-      console.log("Saving file");
-      setStatus("saving");
-      socket.emit("save-file", fileId, activeFile.path, () => {
-        setStatus("saved");
-        console.log("File saved successfully");
-      });
-    };
-
-    document.addEventListener("keydown", (event) => {
+    const handleSaveFile = (event: KeyboardEvent) => {
       if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
-        handleSaveFile();
+        if (!activeFile || !activeRoom || !fileIdRef.current) return;
+        console.log("Saving file:", activeFile.name);
+        setStatus("saving");
+        socket.emit("save-file", fileIdRef.current, activeFile.path, () => {
+          setStatus("saved");
+          console.log("File saved successfully");
+        });
       }
-    });
+    };
+
+    document.addEventListener("keydown", handleSaveFile);
 
     return () => {
-      document.removeEventListener("keydown", handleSaveFile);
+      document.removeEventListener("keydown", handleSaveFile); // ✅ NOW IT WORKS!
       if (activeFile && activeRoom && fileIdRef.current) {
         socket.emit("leaveFile", {
           roomId: activeRoom.id,
