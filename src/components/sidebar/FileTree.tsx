@@ -9,6 +9,7 @@ import {
   Trash2Icon,
   EditIcon,
   Book,
+  Coffee,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useRoomStore, { type FileTree, type FileType } from "@/store/room.store";
@@ -228,18 +229,43 @@ const useFileEdit = (
 const FileIcon = ({
   type,
   isExpanded,
+  name,
 }: {
   type: FileType;
   isExpanded: boolean;
+  name: string;
 }) => {
   if (type === "directory") {
     return isExpanded ? (
-      <FolderOpen className="w-4 h-4 shrink-0 text-blue-500" />
+      <FolderOpen
+        fill="#6a7282"
+        fillRule="nonzero"
+        className="w-4 h-4 shrink-0 text-background group-hover:text-secondary"
+      />
     ) : (
-      <Folder className="w-4 h-4 shrink-0 text-blue-500" />
+      <Folder
+        fill="#6a7282"
+        className="w-4 h-4 shrink-0 text-background group-hover:text-secondary"
+      />
     );
   }
-  return <File className="w-4 h-4 shrink-0 text-yellow-600" />;
+
+  if (name.endsWith(".class")) {
+    return <Coffee className="w-4 h-4 shrink-0 text-blue-600" />;
+  } else if (name.endsWith(".java")) {
+    return <Coffee className="w-4 h-4 shrink-0 text-red-600" />;
+  } else if (name.endsWith(".py")) {
+    return <img src="/icon/python.svg" className="w-4 h-4 shrink-0" />;
+  } else if (name.endsWith(".cpp") || name.endsWith(".c++")) {
+    return <img src="/icon/cpp.svg" className="w-4 h-4 shrink-0" />;
+  }
+
+  return (
+    <File
+      fill="#6a7282"
+      className="w-4 h-4 shrink-0 text-background group-hover:text-secondary"
+    />
+  );
 };
 
 const FileActions = ({
@@ -377,7 +403,7 @@ const FileNode = ({
         onClick={handleSelect}
       >
         <div className="flex items-center gap-1.5 flex-1 min-w-0">
-          <FileIcon type={item.type} isExpanded={isExpanded} />
+          <FileIcon type={item.type} name={item.name} isExpanded={isExpanded} />
 
           <EditableFileName
             isEditing={isEditing}

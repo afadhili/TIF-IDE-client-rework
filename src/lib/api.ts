@@ -1,10 +1,9 @@
 import { io } from "socket.io-client";
 import type { Socket } from "socket.io-client";
 
-const APIPORT = import.meta.env.VITE_API_PORT || 3000;
 export const API_URL =
   import.meta.env.VITE_API_URL ||
-  `http://${window.location.hostname}:${APIPORT}`;
+  "";
 
 export async function fetchApi(url: string, options: RequestInit = {}) {
   const response = await fetch(
