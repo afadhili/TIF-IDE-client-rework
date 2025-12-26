@@ -1,35 +1,35 @@
 # TIF-IDE: Client Application
 
 ![Open Source](https://img.shields.io/badge/Open%20Source-Yes-green?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
 
 The frontend client for the TIF-IDE collaborative coding platform. Built with React, Vite, and TypeScript, it provides a rich user interface for real-time coding collaboration, featuring a Monaco Editor and a fully functional web-based terminal.
 
 ## Features
 
--   **Code Editor**: Powered by [Monaco Editor](https://microsoft.github.io/monaco-editor/), supporting syntax highlighting and intellisense.
--   **Web Terminal**: Integrated [xterm.js](https://xtermjs.org/) terminal for executing code and running commands.
--   **Real-time Collaboration**: Collaborative editing using [Yjs](https://github.com/yjs/yjs) and WebSockets.
--   **Modern UI**: Clean and responsive interface built with [Radix UI](https://www.radix-ui.com/) and [Tailwind CSS](https://tailwindcss.com/).
--   **File Explorer**: Tree-view file explorer for managing project files.
--   **Themes**: Dark mode support via `next-themes`.
+- **Code Editor**: Powered by [Monaco Editor](https://microsoft.github.io/monaco-editor/), supporting syntax highlighting and intellisense.
+- **Web Terminal**: Integrated [xterm.js](https://xtermjs.org/) terminal for executing code and running commands.
+- **Real-time Collaboration**: Collaborative editing using [Yjs](https://github.com/yjs/yjs) and WebSockets.
+- **Modern UI**: Clean and responsive interface built with [Radix UI](https://www.radix-ui.com/) and [Tailwind CSS](https://tailwindcss.com/).
+- **File Explorer**: Tree-view file explorer for managing project files.
 
 ## Tech Stack
 
--   **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
--   **Language**: [TypeScript](https://www.typescriptlang.org/)
--   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
--   **UI Components**: [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/) (icons)
--   **Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/) (`@monaco-editor/react`)
--   **Terminal**: [Xterm.js](https://xtermjs.org/) (`@xterm/xterm`)
--   **State Management**: [Zustand](https://github.com/pmndrs/zustand)
--   **Routing**: [React Router](https://reactrouter.com/)
--   **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
--   **Collaboration**: [Yjs](https://github.com/yjs/yjs), [Socket.io Client](https://socket.io/)
+- **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/) (icons)
+- **Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/) (`@monaco-editor/react`)
+- **Terminal**: [Xterm.js](https://xtermjs.org/) (`@xterm/xterm`)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Routing**: [React Router](https://reactrouter.com/)
+- **Forms**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
+- **Collaboration**: [Yjs](https://github.com/yjs/yjs), [Socket.io Client](https://socket.io/)
 
 ## Prerequisites
 
--   Node.js (v20 or higher)
--   npm or yarn package manager
+- Node.js (v20 or higher)
+- npm or yarn package manager
 
 ## Installation
 
@@ -96,18 +96,8 @@ client/
 
 ## Scripts
 
--   `npm run dev`: Start the development server.
--   `npm run build`: Compile TypeScript and build for production.
--   `npm run lint`: Run ESLint to check for code quality issues.
--   `npm run preview`: Preview the production build locally.
--   `npm start`: Alias for `preview` (runs on port 3001).
-
-## Contributing
-
-We welcome contributions to the TIF-IDE project! Here's how you can help:
-
-1.  **Fork** the repository.
-2.  Create your **feature branch** (`git checkout -b feature/AmazingFeature`).
-3.  **Commit** your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  **Push** to the branch (`git push origin feature/AmazingFeature`).
-5.  Open a **Pull Request**.
+- `npm run dev`: Start the development server.
+- `npm run build`: Compile TypeScript and build for production.
+- `npm run lint`: Run ESLint to check for code quality issues.
+- `npm run preview`: Preview the production build locally.
+- `npm start`: Alias for `preview` (runs on port 3001).
